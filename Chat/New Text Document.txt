@@ -1,0 +1,6 @@
+here are the datasets I	 have suggested and here are the smart questions from the motor vehicle collision dataset 
+
+
+a)What is the distribution of accidents by borough?
+b) Are there any specific locations (streets, intersections) that have a higher frequency of accidents?
+c) Which contributing factors are most commonly associated with accidents?
