@@ -25,7 +25,10 @@ from scipy.stats import chi2_contingency
 # %% [markdown]
 #loading the dataset
 # Printing the total values in the dataset and the few rows
-df = pd.read_csv('/Users/bhumikamallikarjunhorapet/Documents/GitHub/DATS-6103-FA-23-SEC-11-TEAM2/Datasets/fraud_oracle.csv')
+file_path = r'/Users/bhumikamallikarjunhorapet/Documents/GitHub/DATS-6103-FA-23-SEC-11-TEAM2/Datasets/fraud_oracle.csv' ##enter your path here
+
+# Read the CSV file into a DataFrame
+df = pd.read_csv(file_path)
 print('The data constain ', len(df),' observations.')
 df.head()
 
@@ -149,8 +152,76 @@ sns.lmplot(x='WeekOfMonthClaimed', y='PolicyNumber', hue='FraudFound_P', data=df
 plt.title('Linear Relationship between Two Numerical Features')
 plt.show()
 
+#%%
+#code to visualize graphs for categorical variables
+# List of columns to visualize
+columns_to_visualize = ['VehiclePrice', 'AgeOfVehicle', 'Make', 'VehiclePrice']
+for col in columns_to_visualize:
+    if col in df2.columns:
+        plt.figure(figsize=(8, 4))
+        sns.histplot(df2[col], kde=False, bins=20, color='skyblue')
+        plt.title(f'Distribution of {col}')
+        plt.xlabel(col)
+        plt.ylabel('Frequency')
+        plt.show()
+for col in columns_to_visualize:
+    if col in df2.columns:
+        plt.figure(figsize=(8, 4))
+        sns.countplot(y=col, data=df2, palette='pastel')
+        plt.title(f'Distribution of {col}')
+        plt.xlabel('Frequency')
+        plt.show()
+
+#%%
+#age distribution graph with density curve
+fig, ax = plt.subplots(figsize = (20, 5))
+
+ax.hist(df['Age'], bins = 25, edgecolor = 'black', alpha = 0.7, color = 'skyblue', density = True)
+df['Age'].plot(kind = 'kde', color = 'red', ax = ax)
+
+ax.set_xlabel('Age')
+ax.set_ylabel('Count / Density')
+ax.set_title('Age Distribution Histogram with Density Curve')
+ax.legend(['Density Curve', 'Histogram'])
+plt.show()
+
+#%%
+#pie chart showing the fraud percentage in the dataset
+fraud_mapping = {0: 'No', 1: 'Yes'}
+df['FraudFound_P_Labels'] = df['FraudFound_P'].map(fraud_mapping)
+fraud_counts = df['FraudFound_P_Labels'].value_counts()
+plt.figure(figsize=(8, 8))
+plt.pie(fraud_counts, labels=fraud_counts.index, autopct='%1.1f%%', startangle=90)
+plt.title('Distribution of FraudFound_P')
+plt.show()
+
+#%%
+plt.figure(figsize=(15,8))
+sns.countplot(data=df, x="VehiclePrice", hue="FraudFound_P")
+contingency_table = pd.crosstab(df['VehiclePrice'], df['FraudFound_P'])
+chi2, p_value, _, expected = stats.chi2_contingency(contingency_table)
+print("Chi-square statistic:", chi2)
+print("p-value:", p_value)
+'''
+Null Hypothesis (H0): There is no significant association between the price of vehicles and the likelihood of fraud. The proportions of fraudulent claims are the same across different price categories of vehicles.
+
+Alternative Hypothesis (HA): There is a significant association between the price of vehicles and the likelihood of fraud. The proportions of fraudulent claims differ across different price categories of vehicles.
+
+'''
+
+#%%
+contingency_table = pd.crosstab(df['WitnessPresent'], df['FraudFound_P'])
+chi2, p_value, _, _ = stats.chi2_contingency(contingency_table)
+print("Chi-square statistic:", chi2)
+print("p-value:", p_value)
+sns.countplot(data=df, x="WitnessPresent", hue="FraudFound_P")
 
 
+''''
+Null Hypothesis (H0): There is no significant association between the presence of a witness and the occurrence of fraud. The proportions of fraudulent claims are the same for claims with and without a witness.
+
+Alternative Hypothesis (HA): There is a significant association between the presence of a witness and the occurrence of fraud. The proportions of fraudulent claims differ between claims with and without a witness.
+'''
 
 # %%[markdown]
 #Correlation matrix
