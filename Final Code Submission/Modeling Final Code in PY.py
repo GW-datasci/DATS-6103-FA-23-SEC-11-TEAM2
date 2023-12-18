@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+#%%[markdown]
 
 # # Insurance fraud detection
 
@@ -143,7 +142,7 @@
 #   - Not sure what a supplement is in insurance.
 # 
 
-# In[1]:
+#%%[markdown]
 
 
 import pandas as pd
@@ -156,8 +155,7 @@ df = pd.read_csv(file_path)
 # Display the first few rows of the DataFrame to check if it's loaded correctly
 df.head()
 
-
-# In[2]:
+#%%[markdown]
 
 
 # Check unique values in the target variable
@@ -165,7 +163,7 @@ unique_values = df['FraudFound_P'].unique()
 print("Unique values in the target variable (FraudFound_P):", unique_values)
 
 
-# In[3]:
+#%%[markdown]
 
 
 # Check for NaN values in the entire dataset
@@ -176,9 +174,7 @@ print(nan_values)
 
 # Hence there are no missing values in the dataset
 
-# In[4]:
-
-
+#%%[markdown]
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -199,7 +195,7 @@ plt.ylabel('Count')
 plt.show()
 
 
-# In[5]:
+#%%[markdown]
 
 
 # Display the data types of each column
@@ -208,7 +204,7 @@ print("Data types of each column:")
 print(data_types)
 
 
-# In[6]:
+#%%[markdown]
 
 
 # Display unique values of each column
@@ -218,7 +214,7 @@ for column in df.columns:
     print(unique_values)
 
 
-# In[7]:
+#%%[markdown]
 
 
 # Perform one-hot encoding for categorical variables
@@ -236,7 +232,7 @@ df_encoded = pd.get_dummies(df, columns=[
 df_encoded.head()
 
 
-# In[8]:
+#%%[markdown]
 
 
 #Check the new data dypes
@@ -246,8 +242,7 @@ print(data_types)
 
 
 # ## Split the data into test and train
-
-# In[9]:
+#%%[markdown]
 
 
 #Split the data into test and train
@@ -267,7 +262,7 @@ print("Shape of y_train:", y_train.shape)
 print("Shape of y_test:", y_test.shape)
 
 
-# In[10]:
+#%%[markdown]
 
 
 # Check for missing values in the training set
@@ -278,7 +273,7 @@ print(missing_values_train)
 
 # ## Decision Tree classifier
 
-# In[11]:
+#%%[markdown]
 
 
 from sklearn.tree import DecisionTreeClassifier
@@ -325,13 +320,13 @@ plt.legend(loc="lower right")
 plt.show()
 
 
-# In[29]:
+#%%[markdown]
 
 
 ## Hyperparameter tuning of Decision Tree classifier
 
 
-# In[12]:
+#%%[markdown]
 
 
 from sklearn.model_selection import GridSearchCV
@@ -394,7 +389,7 @@ print(conf_matrix_best_dt)
 
 # ## threshold adjustment
 
-# In[15]:
+#%%[markdown]
 
 
 import numpy as np
@@ -445,7 +440,7 @@ plt.show()
 
 # ## XGBoost
 
-# In[16]:
+#%%[markdown]
 
 
 from xgboost import XGBClassifier
@@ -481,7 +476,7 @@ print(conf_matrix_xgb)
 # ## XGBoost with SMOTE
 # 
 
-# In[18]:
+#%%[markdown]
 
 
 
@@ -523,7 +518,7 @@ print(confusion_matrix(y_test, y_pred_xgb_smote))
 # ## Hyperparameter tuning of XGBoost.
 # 
 
-# In[19]:
+#%%[markdown]
 
 
 from sklearn.model_selection import GridSearchCV
@@ -576,7 +571,7 @@ print("Confusion Matrix with Best XGBoost Model:")
 print(conf_matrix_best_xgb)
 
 
-# In[22]:
+#%%[markdown]
 
 
 import xgboost as xgb
@@ -624,7 +619,7 @@ print(conf_matrix_xgb)
 
 # ## Trying out different thresholds and finding the best balance at 0.1
 
-# In[21]:
+#%%[markdown]
 
 
 import matplotlib.pyplot as plt
@@ -665,7 +660,7 @@ print(conf_matrix_best_xgb_adj_more)
 
 # ## Feature Importance
 
-# In[23]:
+#%%[markdown]
 
 
 # To find out the top 10 features in predicting the target variable.
@@ -710,37 +705,31 @@ plt.ylabel('Feature')
 plt.show()
 
 
-# In[ ]:
 
 
 
 
 
-# In[ ]:
 
 
 
 
 
-# In[ ]:
 
 
 
 
 
-# In[ ]:
 
 
 
 
 
-# In[ ]:
 
 
 
 
 
-# In[ ]:
 
 
 
